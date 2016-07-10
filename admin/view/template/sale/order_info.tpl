@@ -26,14 +26,6 @@
             <td><?php echo $text_order_id; ?></td>
             <td>#<?php echo $order_id; ?></td>
           </tr>
-          <?php if (!empty($amazon_order_id)) { ?>
-          
-          <tr>
-            <td><?php echo $text_amazon_order_id; ?></td>
-            <td><?php echo $amazon_order_id; ?></td>
-          </tr>
-          
-          <?php } ?>
           <tr>
             <td><?php echo $text_invoice_no; ?></td>
             <td><?php if ($invoice_no) { ?>
@@ -185,13 +177,13 @@
             <td><?php echo $text_company_id; ?></td>
             <td><?php echo $payment_company_id; ?></td>
           </tr>
-          <?php } ?>          
+          <?php } ?>
           <?php if ($payment_tax_id) { ?>
           <tr>
             <td><?php echo $text_tax_id; ?></td>
             <td><?php echo $payment_tax_id; ?></td>
           </tr>
-          <?php } ?>            
+          <?php } ?>
           <tr>
             <td><?php echo $text_address_1; ?></td>
             <td><?php echo $payment_address_1; ?></td>
@@ -236,25 +228,14 @@
       <?php if ($shipping_method) { ?>
       <div id="tab-shipping" class="vtabs-content">
         <table class="form">
-          <?php if (!empty($amazon_order_id) && empty($shipping_lastname)) { ?> 
-            
-            <tr>
-              <td><?php echo $text_name; ?></td>
-              <td><?php echo $shipping_firstname; ?></td>
-            </tr>
-            
-           <?php } else { ?>
-            
-            <tr>
-              <td><?php echo $text_firstname; ?></td>
-              <td><?php echo $shipping_firstname; ?></td>
-            </tr>
-            <tr>
-              <td><?php echo $text_lastname; ?></td>
-              <td><?php echo $shipping_lastname; ?></td>
-            </tr>
-            
-           <?php } ?>
+          <tr>
+            <td><?php echo $text_firstname; ?></td>
+            <td><?php echo $shipping_firstname; ?></td>
+          </tr>
+          <tr>
+            <td><?php echo $text_lastname; ?></td>
+            <td><?php echo $shipping_lastname; ?></td>
+          </tr>
           <?php if ($shipping_company) { ?>
           <tr>
             <td><?php echo $text_company; ?></td>
@@ -718,24 +699,24 @@ $('#invoice-generate').live('click', function() {
 		url: 'index.php?route=sale/order/createinvoiceno&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>',
 		dataType: 'json',
 		beforeSend: function() {
-			$('#invoice').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');	
+			$('#invoice').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');
 		},
 		complete: function() {
 			$('.loading').remove();
 		},
 		success: function(json) {
 			$('.success, .warning').remove();
-						
+
 			if (json['error']) {
 				$('#tab-order').prepend('<div class="warning" style="display: none;">' + json['error'] + '</div>');
-				
+
 				$('.warning').fadeIn('slow');
 			}
-			
+
 			if (json.invoice_no) {
 				$('#invoice').fadeOut('slow', function() {
 					$('#invoice').html(json['invoice_no']);
-					
+
 					$('#invoice').fadeIn('slow');
 				});
 			}
@@ -749,25 +730,25 @@ $('#credit-add').live('click', function() {
 		type: 'post',
 		dataType: 'json',
 		beforeSend: function() {
-			$('#credit').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');			
+			$('#credit').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');
 		},
 		complete: function() {
 			$('.loading').remove();
-		},			
+		},
 		success: function(json) {
 			$('.success, .warning').remove();
-			
+
 			if (json['error']) {
 				$('.box').before('<div class="warning" style="display: none;">' + json['error'] + '</div>');
-				
+
 				$('.warning').fadeIn('slow');
 			}
-			
+
 			if (json['success']) {
                 $('.box').before('<div class="success" style="display: none;">' + json['success'] + '</div>');
-				
+
 				$('.success').fadeIn('slow');
-				
+
 				$('#credit').html('<b>[</b> <a id="credit-remove"><?php echo $text_credit_remove; ?></a> <b>]</b>');
 			}
 		}
@@ -780,25 +761,25 @@ $('#credit-remove').live('click', function() {
 		type: 'post',
 		dataType: 'json',
 		beforeSend: function() {
-			$('#credit').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');			
+			$('#credit').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');
 		},
 		complete: function() {
 			$('.loading').remove();
-		},			
+		},
 		success: function(json) {
 			$('.success, .warning').remove();
-						
+
 			if (json['error']) {
 				$('.box').before('<div class="warning" style="display: none;">' + json['error'] + '</div>');
-				
+
 				$('.warning').fadeIn('slow');
 			}
-			
+
 			if (json['success']) {
                 $('.box').before('<div class="success" style="display: none;">' + json['success'] + '</div>');
-				
+
 				$('.success').fadeIn('slow');
-				
+
 				$('#credit').html('<b>[</b> <a id="credit-add"><?php echo $text_credit_add; ?></a> <b>]</b>');
 			}
 		}
@@ -811,23 +792,23 @@ $('#reward-add').live('click', function() {
 		type: 'post',
 		dataType: 'json',
 		beforeSend: function() {
-			$('#reward').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');			
+			$('#reward').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');
 		},
 		complete: function() {
 			$('.loading').remove();
-		},									
+		},
 		success: function(json) {
 			$('.success, .warning').remove();
-						
+
 			if (json['error']) {
 				$('.box').before('<div class="warning" style="display: none;">' + json['error'] + '</div>');
-				
+
 				$('.warning').fadeIn('slow');
 			}
-			
+
 			if (json['success']) {
                 $('.box').before('<div class="success" style="display: none;">' + json['success'] + '</div>');
-				
+
 				$('.success').fadeIn('slow');
 
 				$('#reward').html('<b>[</b> <a id="reward-remove"><?php echo $text_reward_remove; ?></a> <b>]</b>');
@@ -846,21 +827,21 @@ $('#reward-remove').live('click', function() {
 		},
 		complete: function() {
 			$('.loading').remove();
-		},				
+		},
 		success: function(json) {
 			$('.success, .warning').remove();
-						
+
 			if (json['error']) {
 				$('.box').before('<div class="warning" style="display: none;">' + json['error'] + '</div>');
-				
+
 				$('.warning').fadeIn('slow');
 			}
-			
+
 			if (json['success']) {
                 $('.box').before('<div class="success" style="display: none;">' + json['success'] + '</div>');
-				
+
 				$('.success').fadeIn('slow');
-				
+
 				$('#reward').html('<b>[</b> <a id="reward-add"><?php echo $text_reward_add; ?></a> <b>]</b>');
 			}
 		}
@@ -873,25 +854,25 @@ $('#commission-add').live('click', function() {
 		type: 'post',
 		dataType: 'json',
 		beforeSend: function() {
-			$('#commission').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');			
+			$('#commission').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');
 		},
 		complete: function() {
 			$('.loading').remove();
-		},			
+		},
 		success: function(json) {
 			$('.success, .warning').remove();
-						
+
 			if (json['error']) {
 				$('.box').before('<div class="warning" style="display: none;">' + json['error'] + '</div>');
-				
+
 				$('.warning').fadeIn('slow');
 			}
-			
+
 			if (json['success']) {
                 $('.box').before('<div class="success" style="display: none;">' + json['success'] + '</div>');
-				
+
 				$('.success').fadeIn('slow');
-                
+
 				$('#commission').html('<b>[</b> <a id="commission-remove"><?php echo $text_commission_remove; ?></a> <b>]</b>');
 			}
 		}
@@ -904,25 +885,25 @@ $('#commission-remove').live('click', function() {
 		type: 'post',
 		dataType: 'json',
 		beforeSend: function() {
-			$('#commission').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');			
+			$('#commission').after('<img src="view/image/loading.gif" class="loading" style="padding-left: 5px;" />');
 		},
 		complete: function() {
 			$('.loading').remove();
-		},			
+		},
 		success: function(json) {
 			$('.success, .warning').remove();
-						
+
 			if (json['error']) {
 				$('.box').before('<div class="warning" style="display: none;">' + json['error'] + '</div>');
-				
+
 				$('.warning').fadeIn('slow');
 			}
-			
+
 			if (json['success']) {
                 $('.box').before('<div class="success" style="display: none;">' + json['success'] + '</div>');
-				
+
 				$('.success').fadeIn('slow');
-				
+
 				$('#commission').html('<b>[</b> <a id="commission-add"><?php echo $text_commission_add; ?></a> <b>]</b>');
 			}
 		}
@@ -931,23 +912,13 @@ $('#commission-remove').live('click', function() {
 
 $('#history .pagination a').live('click', function() {
 	$('#history').load(this.href);
-	
+
 	return false;
-});			
+});
 
 $('#history').load('index.php?route=sale/order/history&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>');
 
 $('#button-history').live('click', function() {
-
-    if(typeof verifyStatusChange == 'function'){
-        if(verifyStatusChange() == false){
-            return false;
-        }else{
-            addOrderInfo();
-        }
-    }else{
-        addOrderInfo();
-    }
 
 	$.ajax({
 		url: 'index.php?route=sale/order/history&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>',
@@ -965,58 +936,15 @@ $('#button-history').live('click', function() {
 		},
 		success: function(html) {
 			$('#history').html(html);
-			
+
 			$('textarea[name=\'comment\']').val('');
-			
+
 			$('#order-status').html($('select[name=\'order_status_id\'] option:selected').text());
 		}
 	});
 });
-//--></script> 
-<script type="text/javascript"><!--
-$('.vtabs a').tabs();
 //--></script>
 <script type="text/javascript"><!--
-    function orderStatusChange(){
-        var status_id = $('select[name="order_status_id"]').val();
-
-        $('#openbayInfo').remove();
-
-        $.ajax({
-            url: 'index.php?route=extension/openbay/ajaxOrderInfo&token=<?php echo $this->request->get['token']; ?>&order_id=<?php echo $this->request->get['order_id']; ?>&status_id='+status_id,
-            type: 'post',
-            dataType: 'html',
-            beforeSend: function(){},
-            success: function(html) {
-                $('#history').after(html);
-            },
-            failure: function(){},
-            error: function(){}
-        });
-    }
-
-    function addOrderInfo(){
-        var status_id = $('select[name="order_status_id"]').val();
-        var old_status_id = $('#old_order_status_id').val();
-
-        $('#old_order_status_id').val(status_id);
-
-        $.ajax({
-            url: 'index.php?route=extension/openbay/ajaxAddOrderInfo&token=<?php echo $token; ?>&order_id=<?php echo $order_id; ?>&status_id='+status_id+'&old_status_id='+old_status_id,
-            type: 'post',
-            dataType: 'html',
-            data: $(".openbayData").serialize(),
-            beforeSend: function(){},
-            success: function() {},
-            failure: function(){},
-            error: function(){}
-        });
-    }
-
-    $(document).ready(function() {
-        orderStatusChange();
-    });
-
-    $('select[name="order_status_id"]').change(function(){orderStatusChange();});
+$('.vtabs a').tabs();
 //--></script>
 <?php echo $footer; ?>

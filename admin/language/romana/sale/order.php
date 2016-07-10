@@ -3,7 +3,6 @@
 $_['heading_title']                           = 'Comenzi';
 
 // Text
-$_['text_amazon_order_id']                    = 'ID comanda Amazon:';
 $_['text_name']                               = 'Nume:';
 $_['text_success']                            = 'Succes: Ai modificat comenzile!';
 $_['text_order_id']                           = 'ID comanda:';
